@@ -1,0 +1,103 @@
+#启动sql,cmd命令界面，
+net start mysql80
+net stop mysql80
+mysql -u root -p
+输入密码：123456
+
+# 展示现有数据
+SHOW DATABASES;
+#创建数据库
+create database itcast;
+create database if not exists  itcast;
+create database if not exists  test;
+#utf8代表3个字节，
+create database itheima default charset utf8mb4;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| itcast             |
+| itheima            |
+| mysql              |
+| performance_schema |
+| sys                |
+| test               |
++--------------------+
+7 rows in set (0.00 sec)
+#删除数据
+drop database test;
+drop database if exists test;
+use itcast;
+Database changed
+#要切换直接
+ use itheima;
+Database changed
+
+#DDL-表操作-查询
+# 查询当前数据库所有表
+show tables;
+#查询表结构
+desc表名;
+#查询指定表的建表语句
+show create table表名;
+use itheima;
+Database changed
+mysql> show tables;
+Empty set (0.02 sec)
+### DDL- 表操作-创建
+create table 表名(
+字段1 字段1类型[comment 字段1注释],
+字段2 字段2类型[comment 字段2注释],
+字段3 字段3类型[comment 字段3注释],
+.....
+字段n 字段n类型[comment 字段n注释],
+)[comment 表注释]
+
+use itcast;
+Database changed
+mysql> create table tb_user(
+    -> id int comment '编号',
+    -> name varchar(50) comment '姓名',
+    -> age int comment '年龄',
+    -> gender varchar(1) comment '性别'
+    -> ) comment '用户表';
+show tables;
++------------------+
+| Tables_in_itcast |
++------------------+
+| tb_user          |
++------------------+
+1 row in set (0.00 sec)
+desc tb_user;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | YES  |     | NULL    |       |
+| name   | varchar(50) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| gender | varchar(1)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+show create table tb_user;
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                      |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| tb_user | CREATE TABLE `tb_user` (
+  `id` int DEFAULT NULL COMMENT '编号',
+  `name` varchar(50) DEFAULT NULL COMMENT '姓名',
+  `age` int DEFAULT NULL COMMENT '年龄',
+  `gender` varchar(1) DEFAULT NULL COMMENT '性别'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表' |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.02 sec)
+
+
+
+
+
+
+
+
