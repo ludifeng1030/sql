@@ -4,6 +4,20 @@ net stop mysql80
 mysql -u root -p
 输入密码：123456
 
+#总结#
+1.DDL数据库操作
+show databases;
+create 数据库名；
+use 数据库名；
+select database(); #查看当前处于哪一个数据库中。
+drop database 数据库名;
+
+2,DDL表操作
+show tables;
+create table 表名(字段，字段类型，字段)
+desc 表名；
+
+
 # 展示现有数据
 SHOW DATABASES;
 #创建数据库
@@ -94,6 +108,55 @@ show create table tb_user;
 +---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 1 row in set (0.02 sec)
 
+create table emp(
+    id int comment '编号',
+    workno varchar(10) comment '工号',
+    name varchar(10) comment '姓名',
+    gender char(1),
+    age tinyint unsigned comment 'age',
+    idcard char(18),
+    entrydate date
+) comment '员工表';
+
+
+#### DDL-表操作-修改
+
+#添加字段
+
+alter table 表名 ADD 字段名 类型（长度） [comment 注释] [约束]；
+
+#####为emp表增加一个新的字段‘昵称’为nickname,类型为varchar(20)
+alter table emp ADD nickname varchar(20) comment '昵称';
+
+##修改数据类型####
+
+alter table 表名 modify 旧字段名 新字段名 类型(长度) [comment 注释] [约束]；
+
+########修改字段名和字段类型#################
+alter table 表名 change 旧字段名 新字段名 类型(长度) [comment 注释] [约束]；
+ 
+##案例： 将emp表的nickname字段修改为username,类型为varchar(30)
+alter table emp change nickname username varchar(30) comment '用户名';
+desc emp;
+
+##删除字段
+alter table 表名 drop 字段名；
+#将emp表的usernames删除
+alter table emp drop username；
+
+#修改表名
+alter table 表名 rename to 新表名;
+alter table emp rename to employee;
+
+##删除表
+drop table [if exists] 表名;
+drop table if exists tb_user;
+
+#删除指定表，并重新创建该表
+truncate table 表名;
+truncate table employee;
+
+##在删除表时候，表中的数据也会被删除。
 
 
 
